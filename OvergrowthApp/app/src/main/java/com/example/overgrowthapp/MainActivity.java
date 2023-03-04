@@ -1,6 +1,7 @@
 package com.example.overgrowthapp;
 
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        Menu menu = navView.getMenu();
+        menu.findItem(R.id.navigation_home).setTitle("Your plants");
+
+        menu.findItem(R.id.navigation_dashboard).setTitle("Browse plants");
+
+        menu.findItem(R.id.navigation_notifications).setTitle("Notifications");
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
