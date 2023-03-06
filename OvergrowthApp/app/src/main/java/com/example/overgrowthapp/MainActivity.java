@@ -13,6 +13,32 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.overgrowthapp.databinding.ActivityMainBinding;
 
+import java.io.FileReader;
+import java.io.IOException;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+public class MyCSVReader {
+    public static void main(String[] args) {
+        try {
+            // Create a CSVParser object to read the CSV file
+            CSVParser parser = new CSVParser(new FileReader("path/to/your/file.csv"), CSVFormat.DEFAULT);
+
+            // Iterate over each record in the CSV file
+            for (CSVRecord record : parser) {
+                // Iterate over each field in the record and print its value
+                for (String field : record) {
+                    System.out.print(field + " ");
+                }
+                System.out.println();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;

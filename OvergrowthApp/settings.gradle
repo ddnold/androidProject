@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "OvergrowthApp"
 include ':app'
+include ':apache'
+include ':csv'
+include ':csv2'
