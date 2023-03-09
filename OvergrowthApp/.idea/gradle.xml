@@ -10,10 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/apache" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/csv" />
-            <option value="$PROJECT_DIR$/csv2" />
           </set>
         </option>
       </GradleProjectSettings>
