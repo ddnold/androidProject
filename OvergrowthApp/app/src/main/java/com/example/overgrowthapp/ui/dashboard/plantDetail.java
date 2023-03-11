@@ -1,6 +1,5 @@
 package com.example.overgrowthapp.ui.dashboard;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -27,6 +26,13 @@ public class plantDetail extends AppCompatActivity {
         if (extras != null) {
             for (String key: extras.keySet()) {
                 Object value = extras.get(key);
+                // Set title
+                if (key == "BotanicalID"){
+                    setTitle(value.toString());
+                }
+                else if(key == "CommonId"){
+                    setTitle(value.toString());
+                }
             }
         }
     }

@@ -24,7 +24,7 @@ public class DashboardFragment extends Fragment {
     RecyclerView recyclerView;
     DatabaseReference database;
     myAdapter myAdapter;
-    ArrayList<user> list;
+    ArrayList<plant> list;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard,container,false);
@@ -41,11 +41,11 @@ public class DashboardFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    user User = dataSnapshot.getValue(user.class);
+                    plant User = dataSnapshot.getValue(plant.class);
                     list.add(User);
-
                 }
                 myAdapter.notifyDataSetChanged();
             }
@@ -62,7 +62,7 @@ public class DashboardFragment extends Fragment {
                 // Check if the last item is about to be shown
                 if (!recyclerView.canScrollVertically(1)) {
                     // Get the last item in the list to use as the starting point for the next query
-                    user lastUser = list.get(list.size() - 1);
+                    plant lastUser = list.get(list.size() - 1);
                     String lastUserId = lastUser.getIndex();
 
                     // Update the query to fetch the next 10 items
@@ -73,7 +73,7 @@ public class DashboardFragment extends Fragment {
                             int sizeBefore = list.size();
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                user User = dataSnapshot.getValue(user.class);
+                                plant User = dataSnapshot.getValue(plant.class);
                                 list.add(User);
 
                             }

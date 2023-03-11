@@ -18,9 +18,9 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
 
     Context context;
 
-    ArrayList<user> list;
+    ArrayList<plant> list;
 
-    public myAdapter(Context context, ArrayList<user> list) {
+    public myAdapter(Context context, ArrayList<plant> list) {
         this.context = context;
         this.list = list;
     }
@@ -34,7 +34,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        user user = list.get(position);
+        plant user = list.get(position);
         holder.commonId.setText(user.getCommonID());
         holder.botanicalID.setText(user.getBotanicalID());
 
@@ -44,6 +44,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             public void onClick(View view) {
                 // Start detail activity
                 Intent intent = new Intent(context, plantDetail.class);
+
+
                 intent.putExtra("commonId", user.getCommonID());
                 intent.putExtra("botanicalID", user.getBotanicalID());
                 context.startActivity(intent);

@@ -1,6 +1,6 @@
 package com.example.overgrowthapp.ui.dashboard;
 
-public class user {
+public class plant {
 
     String CommonId, BotanicalID, index;
 
