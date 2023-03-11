@@ -1,6 +1,7 @@
 package com.example.overgrowthapp.ui.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,18 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         user user = list.get(position);
         holder.commonId.setText(user.getCommonID());
         holder.botanicalID.setText(user.getBotanicalID());
+
+        // add onClickListener to the item view.
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start detail activity
+                Intent intent = new Intent(context, plantDetail.class);
+                intent.putExtra("commonId", user.getCommonID());
+                intent.putExtra("botanicalID", user.getBotanicalID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
