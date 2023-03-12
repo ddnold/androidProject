@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -63,7 +65,7 @@ public class DashboardFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
 
                 // Check if the last item is about to be shown
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) & list.size()!=0) {
                     // Get the last item in the list to use as the starting point for the next query
                     plant lastUser = list.get(list.size() - 1);
                     String lastUserId = lastUser.getIndex();
@@ -92,6 +94,7 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+
         return view;
     }
 

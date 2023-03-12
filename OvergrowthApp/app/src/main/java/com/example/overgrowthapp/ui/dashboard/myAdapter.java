@@ -46,8 +46,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
                 Intent intent = new Intent(context, plantDetail.class);
 
 
-                intent.putExtra("commonId", user.getCommonID());
-                intent.putExtra("botanicalID", user.getBotanicalID());
+                intent.putExtra("CommonId", user.getCommonID());
+                intent.putExtra("BotanicalID", user.getBotanicalID());
                 context.startActivity(intent);
             }
         });
@@ -68,5 +68,10 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             commonId = itemView.findViewById(R.id.tvCommonName);
             botanicalID = itemView.findViewById(R.id.tvBotanicalName);
         }
+    }
+
+    public void setList(ArrayList<plant> newList) {
+        list = newList;
+        notifyDataSetChanged();
     }
 }
