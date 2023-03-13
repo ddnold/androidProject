@@ -1,8 +1,6 @@
 package com.example.overgrowthapp.ui.dashboard;
 
-
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +28,11 @@ public class DashboardFragment extends Fragment {
     DatabaseReference database;
     myAdapter myAdapter;
     ArrayList<plant> list;
+    boolean isLoading = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard,container,false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         recyclerView = view.findViewById(R.id.plantList);
         database = FirebaseDatabase.getInstance().getReference();
         list = new ArrayList<>();
@@ -44,27 +43,29 @@ public class DashboardFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        myAdapter = new myAdapter(view.getContext(),list);
+        myAdapter = new myAdapter(view.getContext(), list);
         recyclerView.setAdapter(myAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                // Check if the last item is about to be shown
-                if (!recyclerView.canScrollVertically(1) & list.size()!=0) {
+                // Check if the last item is about to be shown and isLoading is false
+                if (!recyclerView.canScrollVertically(1) && !isLoading && list.size() != 0) {
+                    isLoading = true;
+
                     // Get the last item in the list to use as the starting point for the next query
                     plant lastUser = list.get(list.size() - 1);
                     String lastUserId = lastUser.getCommonID();
 
                     // Update the query to fetch the next 3 items
                     Query nextQuery = database.orderByChild("CommonId").startAfter(lastUserId).limitToFirst(5);
-                    nextQuery.addValueEventListener(new ValueEventListener() {
+                    nextQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             int sizeBefore = list.size();
 
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 plant User = dataSnapshot.getValue(plant.class);
                                 list.add(User);
 
@@ -72,10 +73,12 @@ public class DashboardFragment extends Fragment {
 
                             int sizeAfter = list.size();
                             myAdapter.notifyItemRangeInserted(sizeBefore, sizeAfter - sizeBefore);
+                            isLoading = false;
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
+                            isLoading = false;
                         }
                     });
                 }
@@ -102,7 +105,7 @@ public class DashboardFragment extends Fragment {
 
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     plant User = dataSnapshot.getValue(plant.class);
                     list.add(User);
@@ -117,3 +120,4 @@ public class DashboardFragment extends Fragment {
     }
 
 }
+
