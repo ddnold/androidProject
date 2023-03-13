@@ -2,6 +2,7 @@ package com.example.overgrowthapp.ui.dashboard;
 
 
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,30 +36,16 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard,container,false);
         recyclerView = view.findViewById(R.id.plantList);
         database = FirebaseDatabase.getInstance().getReference();
-        Query query = database.orderByChild("index").limitToFirst(10);
+        list = new ArrayList<>();
+
+        Query query = database.orderByChild("CommonId").limitToFirst(5);
+        createQuery(query);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        list = new ArrayList<>();
         myAdapter = new myAdapter(view.getContext(),list);
         recyclerView.setAdapter(myAdapter);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int i = 0;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-
-                    plant User = dataSnapshot.getValue(plant.class);
-                    list.add(User);
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -68,10 +55,10 @@ public class DashboardFragment extends Fragment {
                 if (!recyclerView.canScrollVertically(1) & list.size()!=0) {
                     // Get the last item in the list to use as the starting point for the next query
                     plant lastUser = list.get(list.size() - 1);
-                    String lastUserId = lastUser.getIndex();
+                    String lastUserId = lastUser.getCommonID();
 
-                    // Update the query to fetch the next 10 items
-                    Query nextQuery = database.orderByChild("index").startAfter(lastUserId).limitToFirst(10);
+                    // Update the query to fetch the next 3 items
+                    Query nextQuery = database.orderByChild("CommonId").startAfter(lastUserId).limitToFirst(5);
                     nextQuery.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,6 +82,10 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Get a reference to the search bar EditText
+        EditText searchBar = view.findViewById(R.id.search_bar);
+        Button searchBTN = view.findViewById(R.id.search_button);
+
         return view;
     }
 
@@ -103,4 +94,26 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+    public void createQuery(Query query) {
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                    plant User = dataSnapshot.getValue(plant.class);
+                    list.add(User);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
 }

@@ -2,11 +2,8 @@ package com.example.overgrowthapp.ui.dashboard;
 
 public class plant {
 
-    String CommonId, BotanicalID, index;
+    String CommonId, BotanicalID, imgSrc;
 
-    public String getIndex() {
-        return index;
-    }
 
     public String getCommonID() {
         return CommonId;
@@ -14,5 +11,13 @@ public class plant {
 
     public String getBotanicalID() {
         return BotanicalID;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
     }
 }
