@@ -22,21 +22,12 @@ public class plantDetail extends AppCompatActivity {
         Intent intent = getIntent();
 
         Bundle extras = intent.getExtras();
-        String extra = intent.getStringExtra("BotanicalID");
-        if(extra== ""){
-            extra = intent.getStringExtra("CommonId");
-        }
+        String extra = intent.getStringExtra("CommonId");
         this.setTitle(extra);
         if (extras.size() != 0) {
             for (String key: extras.keySet()) {
                 Object value = extras.get(key);
-                // Set title
-                if (key == "BotanicalID"){
-                    this.setTitle(R.layout.plant_detail);
-                }
-                else if(key == "CommonId"){
-                    this.setTitle(value.toString());
-                }
+
             }
         }
     }

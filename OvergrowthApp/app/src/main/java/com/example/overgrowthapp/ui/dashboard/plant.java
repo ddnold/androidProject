@@ -2,8 +2,9 @@ package com.example.overgrowthapp.ui.dashboard;
 
 public class plant {
 
-    String CommonId, BotanicalID, imgSrc;
+    String CommonId, BotanicalID, imgSrc, COMMONID;
 
+    public String getCommonIDCAPS() {return COMMONID; }
 
     public String getCommonID() {
         return CommonId;

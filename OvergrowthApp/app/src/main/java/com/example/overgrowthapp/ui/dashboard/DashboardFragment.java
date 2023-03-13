@@ -36,9 +36,7 @@ public class DashboardFragment extends Fragment {
         recyclerView = view.findViewById(R.id.plantList);
         database = FirebaseDatabase.getInstance().getReference();
         list = new ArrayList<>();
-
-        Query query = database.orderByChild("CommonId").limitToFirst(5);
-        createQuery(query);
+        createQuery("");
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -88,7 +86,13 @@ public class DashboardFragment extends Fragment {
         // Get a reference to the search bar EditText
         EditText searchBar = view.findViewById(R.id.search_bar);
         Button searchBTN = view.findViewById(R.id.search_button);
-
+        searchBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String search = searchBar.getText().toString().toUpperCase().trim();
+                createQuery(search);
+            }
+        });
         return view;
     }
 
@@ -98,17 +102,33 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public void createQuery(Query query) {
+    public void createQuery(String search) {
+        Query query;
+        if (search.isEmpty()) {
+            // If search string is empty, retrieve all plants
+            query = database.orderByChild("CommonId").limitToFirst(5);
+        } else {
+            // If search string is not empty, filter by CommonId
+            query = database.orderByChild("COMMONID");
+
+        }
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
-
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     plant User = dataSnapshot.getValue(plant.class);
-                    list.add(User);
+                    if(search.isEmpty()) {
+                        list.add(User);
+                        myAdapter.notifyDataSetChanged();
+                    }
+                    else{
+                        if(User.getCommonIDCAPS() != null && User.getCommonIDCAPS().contains(search)){
+                            list.add(User);
+                            myAdapter.notifyDataSetChanged();
+                        }
+                    }
                 }
                 myAdapter.notifyDataSetChanged();
             }
@@ -118,6 +138,7 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
 
 }
 
