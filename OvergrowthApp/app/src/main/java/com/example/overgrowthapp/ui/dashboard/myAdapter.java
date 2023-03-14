@@ -49,10 +49,23 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             public void onClick(View view) {
                 // Start detail activity
                 Intent intent = new Intent(context, plantDetail.class);
-
-
                 intent.putExtra("CommonId", user.getCommonID());
                 intent.putExtra("BotanicalID", user.getBotanicalID());
+                intent.putExtra("Family", user.getFamily());
+                intent.putExtra("SoilPH", user.getSoilPH());
+                intent.putExtra("Soil", user.getSoil());
+                intent.putExtra("Bloom Time", user.getBloomTime());
+                intent.putExtra("Hardiness Zone", user.getHardinessZone());
+                intent.putExtra("Type", user.getType());
+                intent.putExtra("url", user.getUrl());
+                intent.putExtra("Sun Exposure", user.getSun());
+                intent.putExtra("Native Area", user.getNativeArea());
+                intent.putExtra("Color", user.getColor());
+                intent.putExtra("Size", user.getSize());
+                intent.putExtra("Toxicity", user.getToxicity());
+                intent.putExtra("Water", user.getWater());
+                intent.putExtra("imgSrc", user.getImgSrc());
+
                 context.startActivity(intent);
             }
         });
