@@ -86,9 +86,9 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            commonId = itemView.findViewById(R.id.tvCommonName);
+            commonId = itemView.findViewById(R.id.detailTV);
             botanicalID = itemView.findViewById(R.id.tvBotanicalName);
-            imgSrc = itemView.findViewById(R.id.plantImage);
+            imgSrc = itemView.findViewById(R.id.icon);
         }
     }
 
