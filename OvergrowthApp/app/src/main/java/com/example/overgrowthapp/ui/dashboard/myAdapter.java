@@ -65,6 +65,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
                 intent.putExtra("Toxicity", user.getToxicity());
                 intent.putExtra("Water", user.getWater());
                 intent.putExtra("imgSrc", user.getImgSrc());
+                intent.putExtra("Bloom Color", user.getBloomColor());
+                intent.putExtra("Growing Time", user.getGrowingTime());
 
                 context.startActivity(intent);
             }
