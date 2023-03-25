@@ -35,7 +35,7 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pair<String, String> data = mDataList.get(position);
 
-        holder.titleTextView.setText(data.first);
+        holder.titleTextView.setText(data.first+":");
         holder.descTextView.setText(data.second);
 
     }
