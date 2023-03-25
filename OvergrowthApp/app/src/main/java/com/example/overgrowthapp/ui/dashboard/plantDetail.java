@@ -45,25 +45,29 @@ public class plantDetail extends AppCompatActivity {
         if (extras != null) {
             ArrayList<Pair<String, String>> dataList = new ArrayList<>();
             for (String key : extras.keySet()) {
-                if(extras.getString(key) == ""){
-                    continue;
-                }
                 if (Objects.equals(key, "Water")) {
-                    waterView.setText(extras.getString(key));
+                    if (extras.getString(key) != null) {
+                        waterView.setText(extras.getString(key));
+                    }
                     continue;
                 }
                 if (Objects.equals(key, "url")) {
-                    urlView.setText("Learn more at: " + extras.getString(key));
-                    urlView.setMovementMethod(LinkMovementMethod.getInstance());
-
+                    if (extras.getString(key) != null) {
+                        urlView.setText("Learn more at: " + extras.getString(key));
+                        urlView.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
                     continue;
                 }
                 if (Objects.equals(key, "imgSrc")) {
-                    Picasso.get().load(extras.getString(key)).transform(new CropCircleTransformation()).into(plantIMG);
+                    if (extras.getString(key) != null) {
+                        Picasso.get().load(extras.getString(key)).transform(new CropCircleTransformation()).into(plantIMG);
+                    }
                     continue;
                 }
                 String value = extras.getString(key);
-                dataList.add(new Pair<>(key, value));
+                if (value != null) {
+                    dataList.add(new Pair<>(key, value));
+                }
             }
 
             detailAdapter adapter = new detailAdapter(dataList, this);
