@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.overgrowthapp.ui.notifications.NotificationsViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(R.id.navigation_dashboard).setTitle("Browse plants");
 
         menu.findItem(R.id.navigation_notifications).setTitle("Notifications");
+
+        NotificationsViewModel.getText();
 
 
         // Passing each menu ID as a set of Ids because each
