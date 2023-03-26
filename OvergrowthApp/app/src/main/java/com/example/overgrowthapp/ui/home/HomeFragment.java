@@ -17,11 +17,12 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     localAdapter localAdapter;
     PlantDatabaseHelper dbHelper;
+    ArrayList<plantPersonal> localList;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         dbHelper = new PlantDatabaseHelper(getContext());
-        ArrayList<plantPersonal> localList = dbHelper.getAllPlants();
+        localList = dbHelper.getAllPlants();
         recyclerView = view.findViewById(R.id.localTable);
         recyclerView.setHasFixedSize(true);
 
@@ -33,6 +34,12 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(localAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        localAdapter.updateList();
     }
 
 

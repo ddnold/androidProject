@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overgrowthapp.R;
+import com.example.overgrowthapp.ui.PlantDatabaseHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,12 +22,14 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class localAdapter extends RecyclerView.Adapter<localAdapter.myViewHolder> {
 
 
-    Context context;
-    ArrayList<plantPersonal> list;
+    private Context context;
+    private ArrayList<plantPersonal> list;
+    private PlantDatabaseHelper dbHelper;
 
     public localAdapter(Context context, ArrayList<plantPersonal> list) {
         this.context = context;
         this.list = list;
+        this.dbHelper = dbHelper;
     }
 
     @NonNull
@@ -80,7 +83,18 @@ public class localAdapter extends RecyclerView.Adapter<localAdapter.myViewHolder
         return list.size();
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder {
+    public void setList(ArrayList<plantPersonal> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
+
+    public void updateList() {
+        dbHelper = new PlantDatabaseHelper(context);
+        list = dbHelper.getAllPlants();
+        notifyDataSetChanged();
+    }
+
+    static class myViewHolder extends RecyclerView.ViewHolder {
 
         TextView commonId, botanicalID;
         ImageView imgSrc;
@@ -92,10 +106,5 @@ public class localAdapter extends RecyclerView.Adapter<localAdapter.myViewHolder
             botanicalID = itemView.findViewById(R.id.tvBotanicalName);
             imgSrc = itemView.findViewById(R.id.icon);
         }
-    }
-
-    public void setList(ArrayList<plantPersonal> newList) {
-        list = newList;
-        notifyDataSetChanged();
     }
 }

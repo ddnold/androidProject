@@ -2,7 +2,6 @@ package com.example.overgrowthapp;
 
 import android.os.Bundle;
 import android.view.Menu;
-import com.example.overgrowthapp.ui.notifications.NotificationsViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -25,13 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         Menu menu = navView.getMenu();
-        menu.findItem(R.id.navigation_home).setTitle("Your plants");
+        menu.findItem(R.id.navigation_home).setTitle("My plants");
 
         menu.findItem(R.id.navigation_dashboard).setTitle("Browse plants");
 
         menu.findItem(R.id.navigation_notifications).setTitle("Notifications");
 
-        NotificationsViewModel.getText();
 
 
         // Passing each menu ID as a set of Ids because each

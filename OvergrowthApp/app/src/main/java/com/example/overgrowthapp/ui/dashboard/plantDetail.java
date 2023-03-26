@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -188,9 +190,10 @@ public class plantDetail extends AppCompatActivity {
         PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
         boolean success = dbHelper.addPlant(newPlant);
         if (success) {
-            // plant was added successfully
-        } else {
-            // plant was not added
+            Toast.makeText(getApplicationContext(), "Plant added to my list!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Failed to add play to my list!", Toast.LENGTH_SHORT).show();
         }
 
 

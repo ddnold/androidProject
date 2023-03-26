@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -174,6 +175,7 @@ public class plantDetailLocal extends AppCompatActivity {
     public void removeBtn(View view){
         PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
         dbHelper.deletePlant(id);
+        Toast.makeText(getApplicationContext(), "Removed plant from my list!", Toast.LENGTH_SHORT).show();
     }
 
 }
