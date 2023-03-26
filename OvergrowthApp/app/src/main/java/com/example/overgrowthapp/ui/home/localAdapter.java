@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overgrowthapp.R;
-import com.example.overgrowthapp.ui.dashboard.plant;
-import com.example.overgrowthapp.ui.dashboard.plantDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

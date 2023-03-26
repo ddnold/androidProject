@@ -5,10 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.example.overgrowthapp.ui.dashboard.plant;
 import com.example.overgrowthapp.ui.home.plantPersonal;
-
 import java.util.ArrayList;
 
 public class PlantDatabaseHelper extends SQLiteOpenHelper {
@@ -142,6 +139,8 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return plants;
     }
+
+
 
 
 }

@@ -7,21 +7,16 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.overgrowthapp.R;
 import com.example.overgrowthapp.ui.PlantDatabaseHelper;
 import com.example.overgrowthapp.ui.home.plantPersonal;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Objects;
 

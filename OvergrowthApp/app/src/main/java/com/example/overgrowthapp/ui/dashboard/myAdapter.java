@@ -7,16 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.overgrowthapp.R;
-import com.example.overgrowthapp.ui.home.plantDetailLocal;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {

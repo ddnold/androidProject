@@ -4,25 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.overgrowthapp.R;
 import com.example.overgrowthapp.ui.PlantDatabaseHelper;
-
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     localAdapter localAdapter;
+    PlantDatabaseHelper dbHelper;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(getContext());
+        dbHelper = new PlantDatabaseHelper(getContext());
         ArrayList<plantPersonal> localList = dbHelper.getAllPlants();
         recyclerView = view.findViewById(R.id.localTable);
         recyclerView.setHasFixedSize(true);
@@ -36,6 +34,8 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
 
     @Override
     public void onDestroyView() {
