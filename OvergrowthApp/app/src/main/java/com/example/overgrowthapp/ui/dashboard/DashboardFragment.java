@@ -109,7 +109,7 @@ public class DashboardFragment extends Fragment {
             query = database.orderByChild("CommonId").limitToFirst(5);
         } else {
             // If search string is not empty, filter by CommonId
-            query = database.orderByChild("COMMONID");
+            query = database.orderByChild("CommonIDCAPS");
 
         }
 

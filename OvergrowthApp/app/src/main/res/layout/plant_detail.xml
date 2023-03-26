@@ -67,9 +67,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:onClick="addBtn"
                         android:text="Add this plant!"
                         android:textStyle="bold"
-                        />
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
             </LinearLayout>
 
