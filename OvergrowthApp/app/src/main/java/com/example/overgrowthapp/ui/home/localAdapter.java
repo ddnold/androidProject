@@ -1,4 +1,4 @@
-package com.example.overgrowthapp.ui.dashboard;
+package com.example.overgrowthapp.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,20 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.overgrowthapp.R;
-import com.example.overgrowthapp.ui.home.plantDetailLocal;
+import com.example.overgrowthapp.ui.dashboard.plant;
+import com.example.overgrowthapp.ui.dashboard.plantDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
+public class localAdapter extends RecyclerView.Adapter<localAdapter.myViewHolder> {
 
 
     Context context;
-    ArrayList<plant> list;
+    ArrayList<plantPersonal> list;
 
-    public myAdapter(Context context, ArrayList<plant> list) {
+    public localAdapter(Context context, ArrayList<plantPersonal> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,7 +40,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        plant user = list.get(position);
+        plantPersonal user = list.get(position);
         holder.commonId.setText(user.getCommonID());
         holder.botanicalID.setText(user.getBotanicalID());
         Picasso.get().load(user.getImgSrc()).transform(new CropCircleTransformation()).into(holder.imgSrc);
@@ -50,7 +51,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             public void onClick(View view) {
                 // Start detail activity
                 Intent intent;
-                intent = new Intent(context, plantDetail.class);
+                intent = new Intent(context, plantDetailLocal.class);
+                intent.putExtra("id", user.getId());
                 intent.putExtra("CommonId", user.getCommonID());
                 intent.putExtra("BotanicalID", user.getBotanicalID());
                 intent.putExtra("Family", user.getFamily());
@@ -94,7 +96,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         }
     }
 
-    public void setList(ArrayList<plant> newList) {
+    public void setList(ArrayList<plantPersonal> newList) {
         list = newList;
         notifyDataSetChanged();
     }

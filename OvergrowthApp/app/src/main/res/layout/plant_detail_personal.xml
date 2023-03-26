@@ -67,8 +67,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:onClick="addBtn"
-                        android:text="Add this plant!"
+                        android:onClick="removeBtn"
+                        android:text="Remove this plant"
                         android:textStyle="bold"
                         tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
@@ -79,7 +79,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-
                 />
 
             <TextView

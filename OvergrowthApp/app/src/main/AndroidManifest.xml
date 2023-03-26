@@ -30,6 +30,10 @@
         <activity
             android:name=".ui.dashboard.plantDetail">
         </activity>
+
+        <activity
+            android:name=".ui.home.plantDetailLocal">
+        </activity>
     </application>
 
 </manifest>

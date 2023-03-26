@@ -26,7 +26,7 @@ public class DashboardFragment extends Fragment {
 
     RecyclerView recyclerView;
     DatabaseReference database;
-    myAdapter myAdapter;
+    com.example.overgrowthapp.ui.dashboard.myAdapter myAdapter;
     ArrayList<plant> list;
     boolean isLoading = false;
 
@@ -42,6 +42,7 @@ public class DashboardFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         myAdapter = new myAdapter(view.getContext(), list);
+
         recyclerView.setAdapter(myAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

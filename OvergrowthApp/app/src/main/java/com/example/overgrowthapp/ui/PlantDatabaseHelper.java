@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.overgrowthapp.ui.dashboard.plant;
+import com.example.overgrowthapp.ui.home.plantPersonal;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
     // SQL statement to create the plants table
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_ID + " LONG NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_COMMON_ID + " TEXT, " +
                     COLUMN_BOTANICAL_ID + " TEXT, " +
                     COLUMN_IMG_SRC + " TEXT, " +
@@ -74,7 +75,15 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Upgrade logic goes here
     }
-    public boolean addPlant(plant plant) {
+
+    public void deletePlant(Long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("plants", "id" + " = ?", new String[] { String.valueOf(id) });
+        db.close();
+    }
+
+
+    public boolean addPlant(plantPersonal plant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("common_id", plant.getCommonID());
@@ -100,13 +109,14 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public ArrayList<plant> getAllPlants() {
-        ArrayList<plant> plants = new ArrayList<>();
+    public ArrayList<plantPersonal> getAllPlants() {
+        ArrayList<plantPersonal> plants = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM plants", null);
         if (cursor.moveToFirst()) {
             do {
-                plant plant = new plant();
+                plantPersonal plant = new plantPersonal();
+                plant.setId(cursor.getLong(cursor.getColumnIndex("id")));
                 plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
                 plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
                 plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));
