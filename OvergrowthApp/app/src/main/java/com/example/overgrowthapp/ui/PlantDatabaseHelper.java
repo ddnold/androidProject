@@ -38,7 +38,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
     // SQL statement to create the plants table
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    COLUMN_ID + " LONG NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_COMMON_ID + " TEXT, " +
                     COLUMN_BOTANICAL_ID + " TEXT, " +
                     COLUMN_IMG_SRC + " TEXT, " +
