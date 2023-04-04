@@ -33,6 +33,10 @@
         </activity>
 
         <activity
+            android:name=".ui.dashboard.startTimer">
+        </activity>
+
+        <activity
             android:name=".ui.home.plantDetailLocal">
         </activity>
     </application>

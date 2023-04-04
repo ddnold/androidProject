@@ -2,7 +2,7 @@ package com.example.overgrowthapp.ui.home;
 
 public class plantPersonal {
 
-    public Long id;
+    public int id;
     public String CommonId;
     public String BotanicalID;
     public String imgSrc;
@@ -22,12 +22,29 @@ public class plantPersonal {
     public String Water;
     public String BloomColor;
     public String GrowingTime;
+    public Long timerStart;
+    public Long timerEnd;
 
-    public Long getId() {
+    public Long getTimerStart() {
+        return timerStart;
+    }
+
+    public void setTimerStart(Long timerEnd) {
+        this.timerEnd = timerEnd;
+    }
+    public Long getTimerEnd() {
+        return timerEnd;
+    }
+
+    public void setTimerEnd(Long timerEnd) {
+        this.timerEnd = timerEnd;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

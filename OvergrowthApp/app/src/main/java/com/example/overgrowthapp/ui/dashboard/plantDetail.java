@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -26,6 +27,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class plantDetail extends AppCompatActivity {
     plantPersonal newPlant;
+    int REQUEST_CODE = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,16 +189,37 @@ public class plantDetail extends AppCompatActivity {
     }
 
     public void addBtn(View view){
-        PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
-        boolean success = dbHelper.addPlant(newPlant);
-        if (success) {
-            Toast.makeText(getApplicationContext(), "Plant added to my list!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "Failed to add play to my list!", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(plantDetail.this, startTimer.class);
+        startActivityForResult(intent, REQUEST_CODE);
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            long startTime = data.getLongExtra("start_time", 0);
+            long endTime = data.getLongExtra("end_time", 0);
+            newPlant.timerStart = startTime;
+            newPlant.timerEnd = endTime;
+
+            PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
+            boolean success = dbHelper.addPlant(newPlant);
+            if (success) {
+                Toast.makeText(getApplicationContext(), "Plant added to my list!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Failed to add play to my list!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            newPlant.timerStart = null;
+            newPlant.timerEnd = null;
+        }
+
+    }
+
 
 }

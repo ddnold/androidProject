@@ -28,7 +28,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class plantDetailLocal extends AppCompatActivity {
     String extra;
-    Long id;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,7 @@ public class plantDetailLocal extends AppCompatActivity {
         TextView botanicalView = findViewById(R.id.botanicalLabel);
         Bundle extras = intent.getExtras();
         extra = intent.getStringExtra("CommonId");
-        id = intent.getLongExtra("id",0);
+        id = intent.getIntExtra("id",0);
         this.setTitle(extra);
         if (extras != null) {
             ArrayList<Pair<String, String>> dataList = new ArrayList<>();

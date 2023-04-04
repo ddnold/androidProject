@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PlantDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "plant_database";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table name and column names
     private static final String TABLE_NAME = "plants";
@@ -34,6 +34,8 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_WATER = "water";
     private static final String COLUMN_BLOOM_COLOR = "bloom_color";
     private static final String COLUMN_GROWING_TIME = "growing_time";
+    private static final String COLUMN_TIMER_START = "timer_start";
+    private static final String COLUMN_TIMER_END = "timer_end";
 
     // SQL statement to create the plants table
     private static final String CREATE_TABLE =
@@ -57,7 +59,9 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_TOXICITY + " TEXT, " +
                     COLUMN_WATER + " TEXT, " +
                     COLUMN_BLOOM_COLOR + " TEXT, " +
-                    COLUMN_GROWING_TIME + " TEXT)";
+                    COLUMN_GROWING_TIME + " TEXT, " +
+                    COLUMN_TIMER_START + " LONG, " +
+                    COLUMN_TIMER_END + " LONG)";
 
     public PlantDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -70,14 +74,17 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Upgrade logic goes here
+        String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        db.execSQL(DROP_TABLE);
+        db.execSQL(CREATE_TABLE);
     }
 
-    public void deletePlant(Long id) {
+    public void deletePlant(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("plants", "id" + " = ?", new String[] { String.valueOf(id) });
         db.close();
     }
+
 
 
     public boolean addPlant(plantPersonal plant) {
@@ -102,6 +109,8 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         values.put("water", plant.getWater());
         values.put("bloom_color", plant.getBloomColor());
         values.put("growing_time", plant.getGrowingTime());
+        values.put("timer_start", plant.getTimerStart());
+        values.put("timer_end", plant.getTimerEnd());
         long result = db.insert("plants", null, values);
         return result != -1;
     }
@@ -113,7 +122,9 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 plantPersonal plant = new plantPersonal();
-                plant.setId(cursor.getLong(cursor.getColumnIndex("id")));
+                plant.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                plant.setTimerEnd(cursor.getLong(cursor.getColumnIndex("timer_end")));
+                plant.setTimerStart(cursor.getLong(cursor.getColumnIndex("timer_start")));
                 plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
                 plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
                 plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));
