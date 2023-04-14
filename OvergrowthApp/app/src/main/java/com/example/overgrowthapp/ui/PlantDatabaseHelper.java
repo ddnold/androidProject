@@ -115,6 +115,19 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean updateTimer(plantPersonal plantToChange) {
+        if(plantToChange.timerStart == plantToChange.timerEnd){
+            return false;
+        }
+        else {
+            long schedule = plantToChange.timerEnd - plantToChange.timerStart;
+            plantToChange.timerStart = System.currentTimeMillis();
+            plantToChange.timerEnd = schedule + plantToChange.timerStart;
+            return true;
+        }
+    }
+
+
     public ArrayList<plantPersonal> getAllPlants() {
         ArrayList<plantPersonal> plants = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

@@ -1,11 +1,14 @@
 package com.example.overgrowthapp.ui.home;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +24,9 @@ import com.example.overgrowthapp.ui.PlantDatabaseHelper;
 import com.example.overgrowthapp.ui.dashboard.detailAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.io.Console;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -47,6 +52,8 @@ public class plantDetailLocal extends AppCompatActivity {
         nestedScrollView.setNestedScrollingEnabled(false);
 
         // init all custom views
+        CalendarView endCalendarView = findViewById(R.id.calendarViewLocal);
+        Calendar calendar = Calendar.getInstance();
         ImageView plantIMG = findViewById(R.id.plantIMG);
         TextView waterView = findViewById(R.id.water);
         TextView urlView = findViewById(R.id.url);
@@ -156,6 +163,20 @@ public class plantDetailLocal extends AppCompatActivity {
                         dataList.add(new Pair<>(key, value));
                     }
                 }
+                if (Objects.equals(key, "timer_end")){
+                    Long value = extras.getLong(key);
+                    Long startTime = extras.getLong("timer_start");
+                    calendar.setTimeInMillis(startTime);
+                    endCalendarView.setDate(calendar.getTimeInMillis());
+
+                    if(value.equals(startTime)){
+                        endCalendarView.setVisibility(View.GONE);
+                    }
+                    if(System.currentTimeMillis()<=value){
+                        endCalendarView.setBackgroundColor(Color.parseColor("#FF4444"));
+                    }
+                }
+                continue;
             }
 
             detailAdapter adapter = new detailAdapter(dataList, this);

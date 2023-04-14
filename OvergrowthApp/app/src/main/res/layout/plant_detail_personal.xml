@@ -80,6 +80,11 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 />
+            <CalendarView
+                android:id="@+id/calendarViewLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:layout_width="match_parent"

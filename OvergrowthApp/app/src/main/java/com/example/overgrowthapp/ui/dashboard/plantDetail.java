@@ -196,14 +196,14 @@ public class plantDetail extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             long startTime = data.getLongExtra("start_time", 0);
             long endTime = data.getLongExtra("end_time", 0);
-            newPlant.timerStart = startTime;
-            newPlant.timerEnd = endTime;
+            newPlant.setTimerStart(startTime);
+            newPlant.setTimerEnd(endTime);
 
             PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
             boolean success = dbHelper.addPlant(newPlant);
