@@ -8,7 +8,7 @@ Dustin Nold and Wesley Millett (Team 10)
 Overgrowth will run on approximately 90.6% of Samsung devices. If your device uses API 26: Android 8.0 (Oreo) or newer API Overgrowth should function on your device.
 
 ### Database Usage
-Overgrowth uses a Firebase Real-time Database in order to provide the user with over 1000 different plants and tree to view or manage. 
+Overgrowth uses a Firebase Real-time Database in order to provide the user with over 1000 different plants to view or manage. 
 
 The database may contain the following information about the plants when applicable:
 - Common Name(s)
