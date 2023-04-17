@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PlantDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "plant_database";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Table name and column names
     private static final String TABLE_NAME = "plants";
@@ -34,7 +34,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_WATER = "water";
     private static final String COLUMN_BLOOM_COLOR = "bloom_color";
     private static final String COLUMN_GROWING_TIME = "growing_time";
-    private static final String COLUMN_TIMER_START = "timer_start";
+    private static final String COLUMN_TIMER_LENGTH = "timer_length";
     private static final String COLUMN_TIMER_END = "timer_end";
 
     // SQL statement to create the plants table
@@ -60,7 +60,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_WATER + " TEXT, " +
                     COLUMN_BLOOM_COLOR + " TEXT, " +
                     COLUMN_GROWING_TIME + " TEXT, " +
-                    COLUMN_TIMER_START + " LONG, " +
+                    COLUMN_TIMER_LENGTH + " LONG, " +
                     COLUMN_TIMER_END + " LONG)";
 
     public PlantDatabaseHelper(Context context) {
@@ -109,20 +109,18 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         values.put("water", plant.getWater());
         values.put("bloom_color", plant.getBloomColor());
         values.put("growing_time", plant.getGrowingTime());
-        values.put("timer_start", plant.getTimerStart());
+        values.put("timer_length", plant.getTimerLength());
         values.put("timer_end", plant.getTimerEnd());
         long result = db.insert("plants", null, values);
         return result != -1;
     }
 
     public boolean updateTimer(plantPersonal plantToChange) {
-        if(plantToChange.timerStart == plantToChange.timerEnd){
+        if(plantToChange.timerLength == 0){
             return false;
         }
         else {
-            long schedule = plantToChange.timerEnd - plantToChange.timerStart;
-            plantToChange.timerStart = System.currentTimeMillis();
-            plantToChange.timerEnd = schedule + plantToChange.timerStart;
+            plantToChange.timerEnd = plantToChange.timerLength+System.currentTimeMillis();
             return true;
         }
     }
@@ -137,7 +135,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
                 plantPersonal plant = new plantPersonal();
                 plant.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 plant.setTimerEnd(cursor.getLong(cursor.getColumnIndex("timer_end")));
-                plant.setTimerStart(cursor.getLong(cursor.getColumnIndex("timer_start")));
+                plant.setTimerLength(cursor.getInt(cursor.getColumnIndex("timer_length")));
                 plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
                 plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
                 plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));

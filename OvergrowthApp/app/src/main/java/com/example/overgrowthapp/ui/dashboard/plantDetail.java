@@ -6,11 +6,11 @@ import android.text.method.LinkMovementMethod;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -27,7 +27,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class plantDetail extends AppCompatActivity {
     plantPersonal newPlant;
-    int REQUEST_CODE = 2;
+    EditText timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class plantDetail extends AppCompatActivity {
         // Adding actionbar reference and enabling back button
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-
+        timer = findViewById(R.id.timerET);
         Intent intent = getIntent();
         // Setup recyclerView
         RecyclerView detailRecyclerView = findViewById(R.id.detailTable);
@@ -172,6 +172,7 @@ public class plantDetail extends AppCompatActivity {
                         newPlant.GrowingTime = value;
                     }
                 }
+
             }
 
             detailAdapter adapter = new detailAdapter(dataList, this);
@@ -189,37 +190,23 @@ public class plantDetail extends AppCompatActivity {
     }
 
     public void addBtn(View view){
-        Intent intent = new Intent(plantDetail.this, startTimer.class);
-        startActivityForResult(intent, REQUEST_CODE);
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            long startTime = data.getLongExtra("start_time", 0);
-            long endTime = data.getLongExtra("end_time", 0);
-            newPlant.setTimerStart(startTime);
-            newPlant.setTimerEnd(endTime);
-
-            PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
-            boolean success = dbHelper.addPlant(newPlant);
-            if (success) {
-                Toast.makeText(getApplicationContext(), "Plant added to my list!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Failed to add play to my list!", Toast.LENGTH_SHORT).show();
-            }
+        if(timer.getText().toString().isEmpty()){
+            newPlant.timerEnd = 0L;
+            newPlant.timerLength = 0;
         }
         else{
-            newPlant.timerStart = null;
-            newPlant.timerEnd = null;
+            newPlant.timerLength = Integer.parseInt(timer.getText().toString())*86400000;
+            newPlant.timerEnd = newPlant.timerLength+System.currentTimeMillis();
         }
 
+        PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
+        boolean success = dbHelper.addPlant(newPlant);
+        if (success) {
+            Toast.makeText(getApplicationContext(), "Plant added to my list!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Failed to add plant to my list!", Toast.LENGTH_SHORT).show();
+        }
+        finish();
     }
-
-
 }

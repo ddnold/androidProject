@@ -72,7 +72,7 @@ public class localAdapter extends RecyclerView.Adapter<localAdapter.myViewHolder
                 intent.putExtra("imgSrc", user.getImgSrc());
                 intent.putExtra("Bloom Color", user.getBloomColor());
                 intent.putExtra("Growing Time", user.getGrowingTime());
-                intent.putExtra("timer_start", user.getTimerStart());
+                intent.putExtra("timer_length", user.getTimerLength());
                 intent.putExtra("timer_end", user.getTimerEnd());
 
                 context.startActivity(intent);

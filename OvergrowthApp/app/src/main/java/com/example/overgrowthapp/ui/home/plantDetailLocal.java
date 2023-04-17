@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,9 +23,7 @@ import com.example.overgrowthapp.ui.PlantDatabaseHelper;
 import com.example.overgrowthapp.ui.dashboard.detailAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -53,12 +50,12 @@ public class plantDetailLocal extends AppCompatActivity {
 
         // init all custom views
         CalendarView endCalendarView = findViewById(R.id.calendarViewLocal);
-        Calendar calendar = Calendar.getInstance();
         ImageView plantIMG = findViewById(R.id.plantIMG);
         TextView waterView = findViewById(R.id.water);
         TextView urlView = findViewById(R.id.url);
         TextView typeView = findViewById(R.id.typeLabel);
         TextView botanicalView = findViewById(R.id.botanicalLabel);
+        TextView calendarTV = findViewById(R.id.calendarTV);
         Bundle extras = intent.getExtras();
         extra = intent.getStringExtra("CommonId");
         id = intent.getIntExtra("id",0);
@@ -165,18 +162,16 @@ public class plantDetailLocal extends AppCompatActivity {
                 }
                 if (Objects.equals(key, "timer_end")){
                     Long value = extras.getLong(key);
-                    Long startTime = extras.getLong("timer_start");
-                    calendar.setTimeInMillis(startTime);
-                    endCalendarView.setDate(calendar.getTimeInMillis());
-
-                    if(value.equals(startTime)){
+                    endCalendarView.setDate(value);
+                    if(value==0L){
                         endCalendarView.setVisibility(View.GONE);
+                        calendarTV.setVisibility(View.GONE);
                     }
-                    if(System.currentTimeMillis()<=value){
+                    if(System.currentTimeMillis()>=value){
+
                         endCalendarView.setBackgroundColor(Color.parseColor("#FF4444"));
                     }
                 }
-                continue;
             }
 
             detailAdapter adapter = new detailAdapter(dataList, this);
@@ -197,6 +192,7 @@ public class plantDetailLocal extends AppCompatActivity {
         PlantDatabaseHelper dbHelper = new PlantDatabaseHelper(this);
         dbHelper.deletePlant(id);
         Toast.makeText(getApplicationContext(), "Removed plant from my list!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }
