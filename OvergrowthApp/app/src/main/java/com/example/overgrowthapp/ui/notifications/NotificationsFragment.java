@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +28,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         dbHelper = new PlantDatabaseHelper(getContext());
-        localList = dbHelper.getAllPlants();
+        localList = dbHelper.getAllExpiredPlants();
         recyclerView = view.findViewById(R.id.localTable);
         recyclerView.setHasFixedSize(true);
 
@@ -37,10 +36,12 @@ public class NotificationsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        notAdapter = new notAdapter(view.getContext(), localList, dbHelper);
+        recyclerView.setAdapter(notAdapter);
 
-
-
+        return view;
     }
+
 
     @Override
     public void onDestroyView() {

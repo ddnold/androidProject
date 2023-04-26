@@ -115,14 +115,20 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean updateTimer(plantPersonal plantToChange) {
-        if(plantToChange.timerLength == 0){
-            return false;
+    public void updateTimer(int plantId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + " = ?", new String[]{String.valueOf(plantId)}, null, null, null);
+        if (cursor.moveToFirst()) {
+            long timerLength = cursor.getLong(cursor.getColumnIndex(COLUMN_TIMER_LENGTH));
+            if (timerLength != 0) {
+                long timerEnd = timerLength + System.currentTimeMillis();
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_TIMER_END, timerEnd);
+                db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(plantId)});
+            }
         }
-        else {
-            plantToChange.timerEnd = plantToChange.timerLength+System.currentTimeMillis();
-            return true;
-        }
+        cursor.close();
+        db.close();
     }
 
 
@@ -130,6 +136,43 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<plantPersonal> plants = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM plants", null);
+        if (cursor.moveToFirst()) {
+            do {
+                plantPersonal plant = new plantPersonal();
+                plant.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                plant.setTimerEnd(cursor.getLong(cursor.getColumnIndex("timer_end")));
+                plant.setTimerLength(cursor.getInt(cursor.getColumnIndex("timer_length")));
+                plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
+                plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
+                plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));
+                plant.setCommonIDCAPS(cursor.getString(cursor.getColumnIndex("common_id_caps")));
+                plant.setFamily(cursor.getString(cursor.getColumnIndex("family")));
+                plant.setSoilPH(cursor.getString(cursor.getColumnIndex("soil_ph")));
+                plant.setSoil(cursor.getString(cursor.getColumnIndex("soil")));
+                plant.setBloomTime(cursor.getString(cursor.getColumnIndex("bloom_time")));
+                plant.setHardinessZone(cursor.getString(cursor.getColumnIndex("hardiness_zone")));
+                plant.setType(cursor.getString(cursor.getColumnIndex("type")));
+                plant.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                plant.setSun(cursor.getString(cursor.getColumnIndex("sun")));
+                plant.setNativeArea(cursor.getString(cursor.getColumnIndex("native_area")));
+                plant.setColor(cursor.getString(cursor.getColumnIndex("color")));
+                plant.setSize(cursor.getString(cursor.getColumnIndex("size")));
+                plant.setToxicity(cursor.getString(cursor.getColumnIndex("toxicity")));
+                plant.setWater(cursor.getString(cursor.getColumnIndex("water")));
+                plant.setBloomColor(cursor.getString(cursor.getColumnIndex("bloom_color")));
+                plant.setGrowingTime(cursor.getString(cursor.getColumnIndex("growing_time")));
+                plants.add(plant);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return plants;
+    }
+
+    public ArrayList<plantPersonal> getAllExpiredPlants() {
+        ArrayList<plantPersonal> plants = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        long currentTime = System.currentTimeMillis();
+        Cursor cursor = db.rawQuery("SELECT * FROM plants WHERE timer_end < ?", new String[]{String.valueOf(currentTime)});
         if (cursor.moveToFirst()) {
             do {
                 plantPersonal plant = new plantPersonal();
