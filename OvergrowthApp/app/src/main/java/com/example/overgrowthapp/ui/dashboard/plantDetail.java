@@ -21,6 +21,8 @@ import com.example.overgrowthapp.ui.PlantDatabaseHelper;
 import com.example.overgrowthapp.ui.home.plantPersonal;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -112,6 +114,13 @@ public class plantDetail extends AppCompatActivity {
                         newPlant.SoilPH = value;
                     }
                 }
+                if (Objects.equals(key, "Soil")){
+                    String value = extras.getString(key);
+                    if (value != null) {
+                        dataList.add(new Pair<>(key, value));
+                        newPlant.Soil = value;
+                    }
+                }
                 if (Objects.equals(key, "Bloom Time")){
                     String value = extras.getString(key);
                     if (value != null) {
@@ -175,7 +184,22 @@ public class plantDetail extends AppCompatActivity {
 
             }
 
-            detailAdapter adapter = new detailAdapter(dataList, this);
+            Map<String, Integer> categoryIcons = new HashMap<>();
+            categoryIcons.put("Sun Exposure", R.drawable.sun);
+            categoryIcons.put("Growing Time", R.drawable.growingtime);
+            categoryIcons.put("Bloom Color", R.drawable.bloomcolor);
+            categoryIcons.put("Toxicity", R.drawable.toxicity);
+            categoryIcons.put("Size", R.drawable.size);
+            categoryIcons.put("Bloom Time", R.drawable.bloomtime);
+            categoryIcons.put("Native Area", R.drawable.nativearea);
+            categoryIcons.put("Hardiness Zone", R.drawable.hardiness);
+            categoryIcons.put("SoilPH", R.drawable.ph);
+            categoryIcons.put("Family", R.drawable.family);
+            categoryIcons.put("Soil", R.drawable.soil);
+
+
+            detailAdapter adapter = new detailAdapter(dataList, categoryIcons, this);
+
             detailRecyclerView.setAdapter(adapter);
         }
     }

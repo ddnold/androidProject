@@ -106,14 +106,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Tips for Watering:"
-                android:fontFamily="cursive"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textAlignment="center"
                 android:layout_margin="8dp"
-                />
+                android:fontFamily="cursive"
+                android:text="Watering Tips:"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/water"
                 android:layout_width="match_parent"
