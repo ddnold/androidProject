@@ -42,7 +42,7 @@
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight=".25"
+            android:layout_weight=".35"
             android:contentDescription="Send an empty search to reset results."
             android:text="Search" />
     </LinearLayout>
