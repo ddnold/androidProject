@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OvergrowthApp</string>
+    <string name="app_name">Overgrowth</string>
     <string name="title_home">My Plants</string>
     <string name="title_dashboard">Browse Plants</string>
     <string name="title_notifications">Notifications</string>
