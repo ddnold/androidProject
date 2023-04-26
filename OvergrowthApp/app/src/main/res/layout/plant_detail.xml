@@ -39,12 +39,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight=".3"
+                        android:hint="Set a timer (in days)"
                         android:inputType="number"
-                        android:textColor="@color/green"
-                        android:textColorHint="@color/green"
                         android:textAlignment="center"
-                        android:hint="Enter # of days to track"
-                        />
+                        android:textColor="@color/green"
+                        android:textColorHint="@color/green" />
                 </LinearLayout>
 
                 <LinearLayout
