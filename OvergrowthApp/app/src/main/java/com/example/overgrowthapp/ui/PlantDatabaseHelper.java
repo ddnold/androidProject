@@ -172,7 +172,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<plantPersonal> plants = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         long currentTime = System.currentTimeMillis();
-        Cursor cursor = db.rawQuery("SELECT * FROM plants WHERE timer_end < ?", new String[]{String.valueOf(currentTime)});
+        Cursor cursor = db.rawQuery("SELECT * FROM plants WHERE timer_end < ? AND timer_end != 0", new String[]{String.valueOf(currentTime)});
         if (cursor.moveToFirst()) {
             do {
                 plantPersonal plant = new plantPersonal();
