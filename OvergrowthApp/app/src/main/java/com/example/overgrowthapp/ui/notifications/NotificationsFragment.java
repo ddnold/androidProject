@@ -26,10 +26,10 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
         dbHelper = new PlantDatabaseHelper(getContext());
         localList = dbHelper.getAllExpiredPlants();
-        recyclerView = view.findViewById(R.id.localTable);
+        recyclerView = view.findViewById(R.id.announcmentTable);
         recyclerView.setHasFixedSize(true);
 
         // Setup Layout Manager
