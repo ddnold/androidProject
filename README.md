@@ -32,6 +32,19 @@ When a user adds a new plant it will be stored in a local SQLite database that i
 
 **Because Overgrowth doesn't store your plants remotely, you will have to recreate your personal list upon uninstallation of the application**
 
+### Features of Overgrowth
+- Large Real-time database containing a large array of different plants. -- COMPLETE
+- Local SQLite database for offline usage -- COMPLETE
+- Ability to search this database in real-time -- COMPLETE
+- Ability to add plants to a user's personal garden -- COMPLETE
+- Ability to add a timer for each plant in a user’s personal garden -- COMPLETE
+- Ability to view plants in the database and develop a cursory understanding of how to care for the plant -- COMPLETE
+- A notifications view that shows all the plants with expired timers. -- COMPLETE
+- Ability to reset a timer with the press of a button -- COMPLETE
+- Push notifications when a timer expires. – INCOMPLETE
+- Dark Mode compatibility -- INCOMPLETE
+
+
 ### Application Usage notes
 
 - The browse plants fragment is initially sorted by common name.
