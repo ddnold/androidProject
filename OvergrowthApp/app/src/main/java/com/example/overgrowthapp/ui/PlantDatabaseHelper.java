@@ -141,7 +141,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
                 plantPersonal plant = new plantPersonal();
                 plant.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 plant.setTimerEnd(cursor.getLong(cursor.getColumnIndex("timer_end")));
-                plant.setTimerLength(cursor.getInt(cursor.getColumnIndex("timer_length")));
+                plant.setTimerLength(cursor.getLong(cursor.getColumnIndex("timer_length")));
                 plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
                 plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
                 plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));
@@ -178,7 +178,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
                 plantPersonal plant = new plantPersonal();
                 plant.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 plant.setTimerEnd(cursor.getLong(cursor.getColumnIndex("timer_end")));
-                plant.setTimerLength(cursor.getInt(cursor.getColumnIndex("timer_length")));
+                plant.setTimerLength(cursor.getLong(cursor.getColumnIndex("timer_length")));
                 plant.setCommonID(cursor.getString(cursor.getColumnIndex("common_id")));
                 plant.setBotanicalID(cursor.getString(cursor.getColumnIndex("botanical_id")));
                 plant.setImgSrc(cursor.getString(cursor.getColumnIndex("img_src")));

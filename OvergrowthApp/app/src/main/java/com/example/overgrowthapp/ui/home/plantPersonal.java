@@ -22,14 +22,14 @@ public class plantPersonal {
     public String Water;
     public String BloomColor;
     public String GrowingTime;
-    public int timerLength;
+    public Long timerLength;
     public Long timerEnd;
 
-    public int getTimerLength() {
+    public Long getTimerLength() {
         return timerLength;
     }
 
-    public void setTimerLength(int timerLength) {
+    public void setTimerLength(Long timerLength) {
         this.timerLength = timerLength;
     }
     public Long getTimerEnd() {

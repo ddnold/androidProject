@@ -216,10 +216,12 @@ public class plantDetail extends AppCompatActivity {
     public void addBtn(View view){
         if(timer.getText().toString().isEmpty()){
             newPlant.timerEnd = 0L;
-            newPlant.timerLength = 0;
+            newPlant.timerLength = 0L;
         }
         else{
-            newPlant.timerLength = Integer.parseInt(timer.getText().toString())*86400000;
+            Integer time = Integer.parseInt(timer.getText().toString());
+            Long timeLong = new Long(time);
+            newPlant.timerLength = timeLong*86400000;
             newPlant.timerEnd = newPlant.timerLength+System.currentTimeMillis();
         }
 
